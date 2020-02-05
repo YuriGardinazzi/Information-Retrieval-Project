@@ -21,7 +21,7 @@ class PagesHandler( xml.sax.ContentHandler):
 		self.title = ""
 		self.text = ""
 		self.pageCounter = 0
-		self.maxPage = 40000
+		self.maxPage = 1000
 	
 	def startElement(self, tag, attributes):
 		'''Call when an element starts'''
