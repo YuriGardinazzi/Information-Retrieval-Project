@@ -30,5 +30,6 @@ zipfile.seek(INDEX) #move forward to the INDEX byte
 data = zipfile.read(CHUNK) # get the decompressed M bytes
 newfile = "enwikinews.xml"
 open(newfile,"wb").write(data) #create new file
-
 zipfile.close()
+
+print(data.decode("utf-8"))  #print the result
