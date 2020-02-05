@@ -21,26 +21,17 @@ class PagesHandler( xml.sax.ContentHandler):
 		self.title = ""
 		self.text = ""
 		self.pageCounter = 0
-		self.maxPage = 1000
+		self.maxPage = 40000
 	
 	def startElement(self, tag, attributes):
 		'''Call when an element starts'''
 		self.CurrentData = tag
-		#if tag == "title":
-		#	print("****************")
+
 		if tag == "page":
 			if self.pageCounter < self.maxPage:
 				print("inizio pagina #", self.pageCounter)
+	
 	def endElement(self, tag):
-		'''	Call when an element ends'''
-		""""
-		if self.CurrentData == "id":
-			#print("ID: ", self.id)
-		elif self.CurrentData == "title":
-			#print("TITLE: ", self.title)
-		elif self.CurrentData == "text":
-			#print("TEXT: \n", self.text)
-		"""
 		if tag == "page":
 			self.pageCounter += 1
 			if self.pageCounter < self.maxPage:
@@ -85,7 +76,7 @@ class PagesHandler( xml.sax.ContentHandler):
 
 if (__name__ == "__main__"):
 	
-	filename = "itwikictionary.xml.bz2"
+	filename = "enwikinews.xml.bz2"
 	zipfile = bz2.BZ2File(filename) # open the file
 	data = zipfile.read() # get the decompressed M bytes
 
