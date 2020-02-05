@@ -24,7 +24,7 @@ class PagesHandler( xml.sax.ContentHandler):
 		self.maxPage = 1000
 	
 	def startElement(self, tag, attributes):
-		'''Call when an element starts'''
+		"""Call when an element starts"""
 		self.CurrentData = tag
 
 		if tag == "page":
@@ -32,6 +32,7 @@ class PagesHandler( xml.sax.ContentHandler):
 				print("inizio pagina #", self.pageCounter)
 	
 	def endElement(self, tag):
+		"""Call when an element ends"""
 		if tag == "page":
 			self.pageCounter += 1
 			if self.pageCounter < self.maxPage:
@@ -43,7 +44,7 @@ class PagesHandler( xml.sax.ContentHandler):
 		self.CurrentData = "" 
 
 	def characters(self,content):
-		''' Call when a character is read'''
+		"""Call when a character is read"""
 		if self.CurrentData == "title":
 			self.title = content
 		elif self.CurrentData == "id":
@@ -52,7 +53,7 @@ class PagesHandler( xml.sax.ContentHandler):
 			self.text = content
 
 	def savePage(self):
-		
+		"""Save id,title,text attributes in a file named self.pageCounter.txt"""
 		data = str(self.id) +"\n" + self.title +"\n"+self.text
 		
 		
@@ -84,14 +85,8 @@ if (__name__ == "__main__"):
 	open(newfile,"wb").write(data)
 	zipfile.close()
 
-	
 	parser = xml.sax.make_parser() #create XMLReader
-	parser.setFeature(xml.sax.handler.feature_namespaces, 0) #turn off namespaces
-	parser.setFeature(xml.sax.handler.feature_validation, 0)
-	parser.setFeature(xml.sax.handler.feature_validation,0)
 	Handler = PagesHandler()
-	parser.setContentHandler(Handler)
-	
+	parser.setContentHandler(Handler)	
 	parser.parse(newfile)
-	
 	
