@@ -4,7 +4,7 @@ Created on Thu Feb  6 20:18:47 2020
 
 This test it's like test_splitting_dump_1.py but it works with 
 dumps retrieved from https://en.wikipedia.org/wiki/Special:Export
-
+useful link: https://en.wikipedia.org/wiki/Help:Export
 It saves documents as <id> 
                       <title>
                       <text>
