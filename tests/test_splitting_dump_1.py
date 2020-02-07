@@ -11,7 +11,7 @@ http://etutorials.org/Programming/Python+tutorial/Part+IV+Network+and+Web+Progra
 
 import bz2
 import xml.sax
-import os.path
+import os.path, io
 
 
 class PagesHandler( xml.sax.ContentHandler):
@@ -72,8 +72,8 @@ class PagesHandler( xml.sax.ContentHandler):
         print("file path: ", file_path)
         if not os.path.isdir(directory):
             os.mkdir(directory)
-        file = open(file_path, "wb")
-        file.write(data.encode()) #data.encode  <= str to byte
+        file = io.open(file_path, "w", encoding="utf-8")
+        file.write(data) #data.encode  <= str to byte
         file.close()
 
 
