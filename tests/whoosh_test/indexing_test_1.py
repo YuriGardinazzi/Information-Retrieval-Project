@@ -2,24 +2,24 @@
 """
 Test of Whoosh library
 
-To use whoosh an Index object is needed.
-To have an Index a schema is needed
-A field is a piece of information for each document in the index, such as Title or Text
-A field can be Indexed = searchable  and/or Stored
+This file creates a simple index based on text files inside the directory  docs
+schema is the  structure of the indexed file, stored = searchable and indexed
+
+useful links: 
+https://appliedmachinelearning.blog/2018/07/31/developing-a-fast-indexing-and-full-text-search-engine-with-whoosh-a-pure-python-library/
+https://whoosh.readthedocs.io/en/latest/quickstart.html
 """
 
 from whoosh.index import create_in
 from whoosh.fields import *
+from whoosh.analysis import StemmingAnalyzer
 import os, os.path, io
 
 
-directory = 'doc'
-doc1= os.path.join(directory, "61.txt")
-doc2= os.path.join(directory, "141.txt")
-doc3= os.path.join(directory, "148.txt")
+
 
 #creation of the schema
-schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT)
+schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT, textdata=TEXT(stored=True))
 if not os.path.exists("indexdir"):
     os.mkdir("indexdir")
     
@@ -28,10 +28,16 @@ ix = create_in("indexdir", schema)
 
 writer = ix.writer()
 
-
-writer.add_document(title=u"First document", path=doc1, content=io.open(doc3,"r", encoding="utf-8").readlines())
-writer.add_document(title=u"Second document", path=doc2, content=io.open(doc2,"r", encoding="utf-8").readlines())
-writer.add_document(title=u"Second document", path=doc2, content=io.open(doc1,"r",encoding="utf-8").readlines())
+#adding entries to the index
+directory = 'doc'
+filepaths = [os.path.join(directory,i) for i in os.listdir(directory)]
+for path in filepaths:
+        fp = io.open(path,'r',encoding="utf-8")
+        print(path)
+        text = fp.read()
+        #title it's not the real title of the document but just the filename
+        writer.add_document(title=path.split("\\")[1], path=path,\
+          content=text,textdata=text)
+        fp.close()
 writer.commit()
 
-ix.close()

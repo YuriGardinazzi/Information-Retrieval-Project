@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Feb  7 17:14:49 2020
-
-@author: Yuri
+This file tests the index created by the file "indexed_test_1.py"
 """
 
 from whoosh.index import open_dir
@@ -13,15 +11,23 @@ import os, os.path
 ix = open_dir("indexdir")
 
 searcher = ix.searcher()
-print(list(searcher.lexicon("content")))
+#print(list(searcher.lexicon("content")))
 parser = QueryParser("content", schema=ix.schema)
-query = parser.parse(u"Japan")
+query = parser.parse(u"group")  
 results = searcher.search(query)
+
 if len(results) == 0:
-    print("Empty result!!")
+    print("Empty Result")
 else:
+    print("Query: ", query)
+    print("Number of results: ", len(results))
+    print("**********")
     for x in results:
-        print(x.encode("utf-8"))
-ix.close()
+        print("PATH:", x['path'])
+        print("TITLE:", x['title'])
+        print("TEXTDATA:", x['textdata'][:300])
+        print("************")
+        
+
 
 
