@@ -14,7 +14,7 @@ Tolgo i ''  -> si riferiscono a parole in corsivo
 """
 from os import listdir
 from os.path import isfile, join
-import os
+import os, io
 
 ### _________FUNCTIONS______
 def findSquareBrackets(line):
@@ -109,7 +109,7 @@ def getWordDoubleApostrophe(line):
     return line[2 : -2]
 # ____________
 
-folder = "./pages"
+folder = "pages"
 files = [f for f in listdir(folder) if isfile(join(folder, f))]
 
 for page in files:
@@ -117,8 +117,8 @@ for page in files:
     #fin = open(folder + os.path.sep + page, "rt")
     #data = fin.read()
 
-    with open(folder + os.path.sep + page, "rt") as fin:
-        data = ""
+    with io.open(folder + os.path.sep + page, "rt", encoding="utf-8") as fin:
+        io.data = ""
         for line in fin:
             start, end = findSquareBrackets(line)
             startTA, endTA = findTripleApostrophe(line)
@@ -158,6 +158,6 @@ for page in files:
 
     fin.close()
 
-    fin = open(folder + os.path.sep + page, "wt")
+    fin = io.open(folder + os.path.sep + page, "wt",encoding="utf-8")
     fin.write(data)
     fin.close()
