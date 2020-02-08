@@ -32,7 +32,7 @@ print("Created index")
 writer = ix.writer()
 
 #adding entries to the index
-directory = 'pages'
+directory = 'doc'
 filepaths = [os.path.join(directory,i) for i in os.listdir(directory)]
 print("Documents read: ")
 for path in filepaths:
