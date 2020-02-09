@@ -8,26 +8,27 @@ from whoosh.fields import *
 from whoosh.qparser import QueryParser
 import os, os.path
 
-ix = open_dir("indexdir")
-
-searcher = ix.searcher()
-#print(list(searcher.lexicon("content")))
-parser = QueryParser("content", schema=ix.schema)
-query = parser.parse(u"group")  
-results = searcher.search(query)
-
-if len(results) == 0:
-    print("Empty Result")
-else:
-    print("Query: ", query)
-    print("Number of results: ", len(results))
-    print("**********")
-    for x in results:
-        print("PATH:", x['path'])
-        print("TITLE:", x['title'])
-        print("TEXTDATA:", x['textdata'][:300])
-        print("************")
-        
+def searchQuery(self, string):
+    ix = open_dir("indexdir")
+    
+    searcher = ix.searcher()
+    #print(list(searcher.lexicon("content")))
+    parser = QueryParser("content", schema=ix.schema)
+    query = parser.parse(string)  
+    results = searcher.search(query)
+    
+    if len(results) == 0:
+        print("Empty Result")
+    else:
+        print("Query: ", query)
+        print("Number of results: ", len(results))
+        print("**********")
+        for x in results:
+            print("PATH:", x['path'])
+            print("TITLE:", x['title'])
+            print("TEXTDATA:", x['textdata'][:300])
+            print("************")
+            
 
 
 
