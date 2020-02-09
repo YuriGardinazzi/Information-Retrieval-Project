@@ -16,31 +16,32 @@ from whoosh.analysis import StemmingAnalyzer
 import os, os.path, io, shutil
 
 
-#creation of the schema
-schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT, textdata=TEXT(stored=True))
-if not os.path.exists("indexdir"):
-    os.mkdir("indexdir")
-else:
-    shutil.rmtree("indexdir")
-    print("Eliminated old indexes")
-    os.mkdir("indexdir")
+def createIndex():
+    #creation of the schema
+    schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT, textdata=TEXT(stored=True))
+    if not os.path.exists("indexdir"):
+        os.mkdir("indexdir")
+    else:
+        shutil.rmtree("indexdir")
+        print("Eliminated old indexes")
+        os.mkdir("indexdir")
+        
+    #creation of the index
+    ix = create_in("indexdir", schema)
+    print("Created index")
     
-#creation of the index
-ix = create_in("indexdir", schema)
-print("Created index")
-
-writer = ix.writer()
-
-#adding entries to the index
-directory = 'doc'
-filepaths = [os.path.join(directory,i) for i in os.listdir(directory)]
-print("Documents read: ")
-for path in filepaths:
-        fp = io.open(path,'r',encoding="utf-8")
-        print(path)
-        text = fp.read()
-        #title it's not the real title of the document but just the filename
-        writer.add_document(title=(os.path.split(path))[1], path=path, content=text,textdata=text)
-        fp.close()
-writer.commit()
+    writer = ix.writer()
+    
+    #adding entries to the index
+    directory = 'doc'
+    filepaths = [os.path.join(directory,i) for i in os.listdir(directory)]
+    print("Documents read: ")
+    for path in filepaths:
+            fp = io.open(path,'r',encoding="utf-8")
+            print(path)
+            text = fp.read()
+            #title it's not the real title of the document but just the filename
+            writer.add_document(title=(os.path.split(path))[1], path=path, content=text,textdata=text)
+            fp.close()
+    writer.commit()
 
