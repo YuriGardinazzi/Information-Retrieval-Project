@@ -25,9 +25,9 @@ class PagesHandler( xml.sax.ContentHandler):
         """Call when an element starts"""
         self.CurrentData = tag
 
-        if tag == "page":
-            if self.pageCounter < self.MAX_PAGE:
-                print("inizio pagina #", self.pageCounter)
+        #if tag == "page":
+            #if self.pageCounter < self.MAX_PAGE:
+                #print("inizio pagina #", self.pageCounter)
         if tag == "text":
             self.bytes = int(attributes["bytes"])
 
@@ -37,7 +37,7 @@ class PagesHandler( xml.sax.ContentHandler):
             if self.format == "text/x-wiki":
                 self.pageCounter += 1
                 if self.pageCounter < self.MAX_PAGE and self.bytes >= self.MIN_BYTES:
-                    print("fine pagina")
+                    #print("fine pagina")
                     self.savePage()
             else:
                 self.title = ""
@@ -65,7 +65,7 @@ class PagesHandler( xml.sax.ContentHandler):
         filename = str(self.pageCounter)+ ".txt"
         file_path = os.path.join(self.directory, filename)
 
-        print("file path: ", file_path)
+        #print("file path: ", file_path)
         if not os.path.isdir(self.directory):
             os.mkdir(self.directory)
             
@@ -73,7 +73,7 @@ class PagesHandler( xml.sax.ContentHandler):
         file.write(data)
         file.close()
 
-        print(r'Saved file: ',self.pageCounter, ".txt")
+        #print(r'Saved file: ',self.pageCounter, ".txt")
 
 class WikiSplitter():
     '''Splitter class, it splits a dump into many *.txt files inside a folder'''
