@@ -118,7 +118,7 @@ for page in files:
     #data = fin.read()
 
     with io.open(folder + os.path.sep + page, "rt", encoding="utf-8") as fin:
-        io.data = ""
+        data = ""
         for line in fin:
             start, end = findSquareBrackets(line)
             startTA, endTA = findTripleApostrophe(line)
