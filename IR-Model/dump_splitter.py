@@ -16,8 +16,8 @@ class PagesHandler( xml.sax.ContentHandler):
         self.title = ""
         self.text = ""
         self.pageCounter = 0
-        self.MAX_PAGE = 300
-        self.MIN_BYTES = 2000
+        self.MAX_PAGE = 1000
+        self.MIN_BYTES = 100
         self.bytes = 0
         self.format = ""
 

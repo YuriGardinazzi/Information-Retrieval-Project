@@ -13,7 +13,7 @@ def display_menu():
           1. Create Index
           2. Create Pages
           3. Search something
-2          4. Exit
+          4. Exit
           """)
     answer = input("What would you like to do? ")
     if answer == "1":
@@ -41,10 +41,12 @@ def make_query(text):
     result = Ind.makeQuery(text)
     if result != None:
         for x in result:
-            print("*********************")
+            print("*********************\n TITLE:")
             print(x['title'])
-            print(x['textdata'][:3000])
-            print(Calculator.findWordInQuery(text, x))
+            print("-----------------------------------------------------------------")
+            print(x['textdata'][:100])
+            print("-----------------------------------------------------------------")
+          #3  print(Calculator.findWordInQuery(text, x))
             
 if __name__ == "__main__":
     

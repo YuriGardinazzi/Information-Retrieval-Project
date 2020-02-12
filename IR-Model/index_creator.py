@@ -47,10 +47,11 @@ class Index:
         print("Documents read: ", filepaths)
         for path in filepaths:
                 fp = io.open(path,'r',encoding="utf-8")
-                print(path)
+                doc_title = fp.readline()
+                print(path, " ", doc_title)
                 text = fp.read()
                 #title it's not the real title of the document but just the filename
-                writer.add_document(title=(os.path.split(path))[1], path=path, content=text,textdata=text)
+                writer.add_document(title=doc_title, path=path, content=text,textdata=text)
                 fp.close()
         writer.commit()
     
