@@ -12,4 +12,7 @@ def index():
 @error(404)
 def error404(error):
     return 'Nothing here, sorry'
-run(host='localhost', port=8080)
+
+if __name__ == "__main__":
+  
+    run(host='localhost', port=8080)
