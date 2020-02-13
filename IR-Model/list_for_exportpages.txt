@@ -4,7 +4,6 @@ Fortune Araames
 Fortune 500 Computer Software & Information Company
 Fortune 500 companies
 Fortune And Maltese
-Fortune Araames
 Fortune Arterial
 Fortune Arterial: Akai Yakusoku
 Fortune Arterial Character's Prelude
@@ -396,7 +395,6 @@ H3K36ac
 H3K56ac
 Histone_methylation
 H3K36me2
-Epigenetics
 Epigenetics & Chromatin
 Epigenetics (journal)
 Epigenetics And Chromatin
@@ -442,7 +440,6 @@ Epigenetochoerus
 Epigenic Triplicity
 Epigenic patterning
 Epigenius
-Epigenome
 Epigenome-wide association study
 Epigenome-wide association study (EWAS)
 Epigenome editing
@@ -450,7 +447,6 @@ Epigenomes
 Epigenomes (journal)
 Epigenomic
 Epigenomic map
-Epigenomics
 Epigenomics (journal)
 Epigenomics AG
 Epigentic inheritance
@@ -1443,7 +1439,6 @@ Base_pair
 DNA_(BTS_song)
 DNA_(Backstreet_Boys_album)
 Nucleic_acid
-RNA
 DNA_(duo)
 DNA_marking
 Genetic_code
@@ -1568,7 +1563,6 @@ Windows_10
 Bill_Gates
 Precision_and_recall
 Accuracy_and_precision
-Precision
 False_precision
 Dilution_of_precision_(navigation)
 Evaluation_measures_(information_retrieval)
@@ -1638,13 +1632,10 @@ Category:Provinces_of_Tuscany
 List_of_communes_of_Tuscany
 March_of_Tuscany
 Category:Rivers_of_Tuscany
-Category:Companies_based_in_Tuscany
 Category:Cities_and_towns_in_Tuscany
-Politics_of_Tuscany
 Music_of_Tuscany
 Category:Monasteries_in_Tuscany
 Regional_Council_of_Tuscany
-Grand_Duchy_of_Tuscany
 Tuscany_(disambiguation)
 List_of_railway_stations_in_Tuscany
 List_of_rulers_of_Tuscany
