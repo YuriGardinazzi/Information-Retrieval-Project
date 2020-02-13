@@ -88,11 +88,20 @@ class Index:
             searcher = ix.searcher(weighting=Cosine)
         elif(weighting == "pl2"):
             searcher = ix.searcher(weighting=PL2)
-
+            
+                 
         parser = QueryParser("content", schema=ix.schema)
         query = parser.parse(input_query)  
-        results = searcher.search(query)
         
+        #Query-corrector
+        corrected = searcher.correct_query(query, input_query)
+        if corrected.query != query:
+             print("Did you mean:", corrected.string)
+             results = searcher.search(corrected.query)
+        else:
+            results = searcher.search(query)
+                
+            
         if len(results) == 0:
             print("Empty Result")
             return None
