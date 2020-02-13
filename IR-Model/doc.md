@@ -12,7 +12,7 @@ With min bytes value = 100 the pages indexed are 1230
 
 
 For each query: 
-- document
+- document (se è solo un nome potrebbe non servire neanche)
 - relevance of that document (yes/no)
 - precision (|Ra|/|A|  -> fraction of the retrieved documents, the set A, which is relevant)
 - rank (six levels)
