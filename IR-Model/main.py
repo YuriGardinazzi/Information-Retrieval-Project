@@ -6,7 +6,7 @@ Main file of the search-engine
 
 from dump_splitter import WikiSplitter
 from index_creator import Index
-import calc as Calculator
+#import calc as Calculator
 
 def display_menu():
     print("""
@@ -26,7 +26,7 @@ def display_menu():
     elif answer == "4":
         raise SystemExit
     else:
-        print("Invalid choice")
+        print("Invalid choice!")
     
 def choose_model(query):
     print("""
@@ -35,7 +35,7 @@ def choose_model(query):
           3. PL2
           4. Back
           """)
-    answer = input("Choose Model to use")
+    answer = input("Choose Model to use: ")
     if answer == "1":
         print("Default model selected!")
         make_query(query, "default")
@@ -49,19 +49,19 @@ def choose_model(query):
         print("Going back!")
         display_menu()
     else:
-        print("Invalid choice")
+        print("Invalid choice!")
     
 def split_files():
-    print("start splitting")
+    print("Start splitting")
     splitter = WikiSplitter()
     splitter.splitFiles()  
-    print("finish splitting")
+    print("Finished splitting")
     
 def create_index():
-    print("start indexing")
+    print("Start indexing")
     Ind = Index()
     Ind.createIndex()
-    print("finish indexing")
+    print("Finished indexing")
     
 def make_query(text, model):
     Ind = Index()  
