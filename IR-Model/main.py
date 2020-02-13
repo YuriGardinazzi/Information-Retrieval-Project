@@ -22,9 +22,32 @@ def display_menu():
         split_files()
     elif answer == "3":
         query = str(input("Insert a term to search: "))
-        make_query(query)
+        choose_model(query)
     elif answer == "4":
         raise SystemExit
+    else:
+        print("Invalid choice")
+    
+def choose_model(query):
+    print("""
+          1. Default (BM25F)
+          2. Cosine
+          3. PL2
+          4. Back
+          """)
+    answer = input("Choose Model to use")
+    if answer == "1":
+        print("Default model selected!")
+        make_query(query, "default")
+    elif answer == "2":
+        print("Cosine weighting model selected!")
+        make_query(query, "cosine")
+    elif answer == "3":
+        print("PL2 weighting model selected!")
+        make_query(query, "pl2")
+    elif answer == "4":
+        print("Going back!")
+        display_menu()
     else:
         print("Invalid choice")
     
@@ -40,9 +63,9 @@ def create_index():
     Ind.createIndex()
     print("finish indexing")
     
-def make_query(text):
+def make_query(text, model):
     Ind = Index()  
-    result = Ind.makeQuery(text)
+    result = Ind.makeQuery(text, model)
     if result != None:
         num = len(result)
         for x in result:
