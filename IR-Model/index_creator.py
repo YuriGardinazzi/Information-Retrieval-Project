@@ -92,7 +92,6 @@ class Index:
                  
         parser = QueryParser("content", schema=ix.schema)
         query = parser.parse(input_query)  
-        #results = searcher.search(query)
         
         #Query-corrector
         corrected = searcher.correct_query(query, input_query)
