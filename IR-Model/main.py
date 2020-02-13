@@ -29,17 +29,22 @@ def display_menu():
         print("Invalid choice")
     
 def split_files():
+    print("start splitting")
     splitter = WikiSplitter()
     splitter.splitFiles()  
+    print("finish splitting")
     
 def create_index():
+    print("start indexing")
     Ind = Index()
     Ind.createIndex()
+    print("finish indexing")
     
 def make_query(text):
     Ind = Index()  
     result = Ind.makeQuery(text)
     if result != None:
+        num = len(result)
         for x in result:
             print("*********************\n TITLE:")
             print(x['title'])
@@ -47,6 +52,7 @@ def make_query(text):
             print(x['textdata'][:100])
             print("-----------------------------------------------------------------")
           #3  print(Calculator.findWordInQuery(text, x))
+        print("Results found: ", num)
             
 if __name__ == "__main__":
     
