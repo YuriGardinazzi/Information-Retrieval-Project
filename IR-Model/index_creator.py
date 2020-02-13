@@ -8,8 +8,27 @@ Created on Sun Feb  9 18:24:22 2020
 from whoosh.index import create_in, open_dir
 from whoosh.fields import *
 from whoosh.qparser import QueryParser
+from whoosh.scoring import WeightingModel
+from whoosh.scoring import Weighting
+from whoosh.scoring import PL2
+
+from math import log
+
 import os, os.path, io, shutil
 
+class Cosine(Weighting):
+    """A cosine vector-space scoring algorithm, translated into Python
+    from Terrier's Java implementation.
+    """
+
+    def score(self, searcher, fieldnum, text, docnum, weight, QTF=1):
+        idf = searcher.idf(fieldnum, text)
+
+        DTW = (1.0 + log(weight)) * idf
+        QMF = 1.0 # TODO: Fix this
+        QTW = ((0.5 + (0.5 * QTF / QMF))) * idf
+        return DTW * QTW
+    
 class Index:
     
     def __init__(self,index_directory = 'index_dir', input_files = 'pages'):
@@ -55,14 +74,21 @@ class Index:
                 fp.close()
         writer.commit()
     
-    def makeQuery(self,input_query,index_directory = 'index_dir'):
+    def makeQuery(self,input_query, weighting, index_directory = 'index_dir'):
         '''Input_query = query to search
            index_diretory: if different from index_dir'''
         if index_directory != self.directory:
             self.directory
            
         ix = open_dir(index_directory)
-        searcher = ix.searcher()
+
+        if(weighting == "default"):
+            searcher = ix.searcher()
+        elif(weighting == "cosine"):
+            searcher = ix.searcher(weighting=Cosine)
+        elif(weighting == "pl2"):
+            searcher = ix.searcher(weighting=PL2)
+
         parser = QueryParser("content", schema=ix.schema)
         query = parser.parse(input_query)  
         results = searcher.search(query)
