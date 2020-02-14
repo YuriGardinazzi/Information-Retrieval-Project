@@ -42,7 +42,7 @@ def calculate_statistics():
         iDCG = ordered_relevance[0]
         while j - 1 < len(relevance):
             DCG += relevance[j - 1] / math.log2(j)
-            iDCG += ordered_relevance[j - 1] / math.log2(j);
+            iDCG += ordered_relevance[j - 1] / math.log2(j)
             j += 1
 
         NDCG = 0
