@@ -16,8 +16,13 @@ from whoosh.analysis import StemmingAnalyzer
 import os, os.path, io, shutil
 
 
+<<<<<<< HEAD
 def createIndex():
     #creation of the schema
+=======
+#creation of the schema
+def createIndex():
+>>>>>>> master
     schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT, textdata=TEXT(stored=True))
     if not os.path.exists("indexdir"):
         os.mkdir("indexdir")

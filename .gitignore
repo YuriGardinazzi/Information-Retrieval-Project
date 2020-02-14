@@ -1,2 +1,4 @@
 tests/*.xml
 tests/*.bz2
+
+tests/test_graphic_engine/__pycache__/bottle.cpython-37.pyc

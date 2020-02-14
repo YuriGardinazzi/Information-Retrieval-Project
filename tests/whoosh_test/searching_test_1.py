@@ -9,7 +9,10 @@ from whoosh.qparser import QueryParser
 import os, os.path
 
 def searchQuery(self, string):
+<<<<<<< HEAD
     
+=======
+>>>>>>> master
     ix = open_dir("indexdir")
     
     searcher = ix.searcher()
@@ -29,7 +32,11 @@ def searchQuery(self, string):
             print("TITLE:", x['title'])
             print("TEXTDATA:", x['textdata'][:300])
             print("************")
+<<<<<<< HEAD
         
+=======
+            
+>>>>>>> master
 
 
 
