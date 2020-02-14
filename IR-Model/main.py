@@ -76,7 +76,17 @@ def make_query(text, model):
             print("-----------------------------------------------------------------")
           #3  print(Calculator.findWordInQuery(text, x))
         print("Results found: ", num)
-            
+def get_title_result(text, model="default"):
+    Ind = Index()
+    result = Ind.makeQuery(text,model)
+    if result != None:
+        num = len(result)
+        data_title=[]
+        data_text=[]
+        for x in result:
+              data_title.append(x['title'])
+              data_text.append(x['textdata'][:100])
+        return data_title, data_text
 if __name__ == "__main__":
     
     while True:
