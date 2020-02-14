@@ -144,17 +144,17 @@ class Cleaner:
                 
                 startTA, endTA = self.findTripleApostrophe(line)
                 if startTA != -1 and endTA != -1:
-                    print(line[startTA : endTA])
-                    print(self.getWordTripleApostrophe(line[startTA : endTA]))
+                 #   print(line[startTA : endTA])
+                 #   print(self.getWordTripleApostrophe(line[startTA : endTA]))
                     line = line.replace(line[startTA : endTA], self.getWordTripleApostrophe(line[startTA : endTA]))
                     startTA, endTA = self.findTripleApostrophe(line)
-                    print("LINE " + line)
+                 #   print("LINE " + line)
                 
                 
                 startDA, endDA = self.findDoubleSign(line, "'", "'")
                 if startDA != -1 and endDA != -1:
                     line = line.replace(line[startDA : endDA], self.getWordDoubleSign(line[startDA : endDA]))
-                    print(self.getWordDoubleSign(line[startDA : endDA]))
+                #    print(self.getWordDoubleSign(line[startDA : endDA]))
                     startDA, endDA = self.findDoubleSign(line, "'", "'")
 
                 startEq, endEq = self.findDoubleSign(line, '=', '=')
@@ -164,7 +164,7 @@ class Cleaner:
 
                 startBr, endBr = self.findDoubleSign(line, '{', '}')
                 if startBr != -1 and endBr != -1:
-                    print(line[startBr : endBr])
+                 #   print(line[startBr : endBr])
                     line = line.replace(line[startBr : endBr], "")
                     startBr, endBr = self.findDoubleSign(line, '{', '}')
              
@@ -179,7 +179,7 @@ class Cleaner:
         # Per togliere {{ }} su più righe
         startBr, endBr = self.findDoubleSign(data, '{', '}')
         while(startBr != -1 and endBr != -1):
-            print(data[startBr : endBr])
+           # print(data[startBr : endBr])
             data = data.replace(data[startBr : endBr], "")
             startBr, endBr = self.findDoubleSign(data, '{', '}')
           
