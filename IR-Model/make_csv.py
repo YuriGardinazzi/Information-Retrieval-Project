@@ -1,4 +1,4 @@
-from statistics import get_google_ranking
+from index_statistics import get_google_ranking
 from main import get_title_result
 import math
 
