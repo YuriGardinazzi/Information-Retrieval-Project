@@ -38,13 +38,16 @@ def choose_model(query):
     answer = input("Choose Model to use: ")
     if answer == "1":
         print("Default model selected!")
-        make_query(query, "default")
+        make_query(query, "default", False)
+        repeat_query(query, "default")
     elif answer == "2":
         print("Cosine weighting model selected!")
-        make_query(query, "cosine")
+        make_query(query, "cosine", False)
+        repeat_query(query, "cosine")
     elif answer == "3":
         print("PL2 weighting model selected!")
-        make_query(query, "pl2")
+        make_query(query, "pl2", False)
+        repeat_query(query, "pl2")
     elif answer == "4":
         print("Going back!")
         display_menu()
@@ -63,9 +66,9 @@ def create_index():
     Ind.createIndex()
     print("Finished indexing")
     
-def make_query(text, model):
+def make_query(text, model, expanse_val):
     Ind = Index()  
-    result = Ind.makeQuery(text, model)
+    result = Ind.makeQuery(text, model, expanse_val)
     if result != None:
         num = len(result)
         for x in result:
@@ -76,6 +79,16 @@ def make_query(text, model):
             print("-----------------------------------------------------------------")
           #3  print(Calculator.findWordInQuery(text, x))
         print("Results found: ", num)
+    else:
+        print("Vuoto")
+def repeat_query(query, model):
+    answer = input("Do you want to expand the query? ")
+    if answer == "yes" or "Yes" or "YES" or "Y" or "y":
+        make_query(query, model, True)
+    else:
+        display_menu()
+    
+    
 def get_title_result(text, model="default"):
     Ind = Index()
     result = Ind.makeQuery(text,model)
@@ -87,6 +100,7 @@ def get_title_result(text, model="default"):
               data_title.append(x['title'])
               data_text.append(x['textdata'][:100])
         return data_title, data_text
+    
 if __name__ == "__main__":
     
     while True:
