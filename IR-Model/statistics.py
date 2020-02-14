@@ -28,16 +28,12 @@ def get_google_ranking():
                    
                     table.append(data)
                 except ValueError:
-                    # You probably have bad JSON
+                    # Bad Json
                     continue
     
-    #for row in table:
-     #   print(row['title'].replace(" - Wikipedia",""))
     return res
 if __name__ == "__main__":
     print("Statistic:")
     res = get_google_ranking()
     for key in res.keys():
-        print("Key: ", key,"num_risultati: ",len(res[key]))
-
-   # get_google_ranking()
+        print("Key: ", key,"\nnum_risultati: ",len(res[key]), "\n******")
