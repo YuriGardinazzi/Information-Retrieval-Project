@@ -35,9 +35,26 @@ def save_data_to_JSON(query_list):
         file_name = query+".json"
         with io.open(file_name,"w") as f:
             for result in results:
-                pprint.pprint(result)
+              #  pprint.pprint(result)
                 json.dump(result,f)
-
+                f.write("\n")
+def read_line(list):
+    table = []
+    for l in list:  
+        with open(l+".json", 'r') as f:
+            for line in f:
+                try:
+                    j = line.split('|')[-1]
+                    table.append(json.loads(j))
+                except ValueError:
+                    # You probably have bad JSON
+                    continue
+    c = 1
+    for row in table:
+        print(c, " ",row['link'])
+        c+=1
+    print(len(table))
+    
 if __name__ == "__main__":
     
     list = ["DNA","Hollywood","Apple","Epigenetics","Maya","Microsoft","Precision","Tuscany","99 balloons","Computer Programming"\
@@ -47,5 +64,7 @@ if __name__ == "__main__":
             "Mean Average Precision", "Physics Nobel Prizes", "Read the manual",\
             "Spanish Civil War", "Do geese see god", "Much ado about nothing"]
     #print(list)
-    save_data_to_JSON(list)
+   # list2 = ["DNA","Hollywood"]
+  #  save_data_to_JSON(list)
+    read_line(list)
     
