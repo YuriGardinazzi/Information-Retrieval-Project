@@ -29,8 +29,8 @@ def calculate_statistics():
                 relevance.append(relevance_google[list_google_titles.index(list_titles[i])])
             else:
                 relevance.append(0)
-        if contRelevant != 0:
-            average_precision_query = sumRelevance / contRelevant
+        if len(dict_google_results) != 0:
+            average_precision_query = sumRelevance / len(dict_google_results)
         
         # Calcolo DCG e iDCG
         ordered_relevance = relevance.copy()
