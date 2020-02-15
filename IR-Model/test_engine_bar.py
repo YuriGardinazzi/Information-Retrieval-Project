@@ -34,11 +34,14 @@ def do_research():
     text = SEARCH_BAR
 
     text += '<form"><pre>'
-    data_title, data_text = get_title_result(query)
-    for i in range(len(data_title)):
-        link = get_wiki_link(data_title[i])
-        text += '<a href="' + link +'""> ' + data_title[i] + '</a>'
-        text += '<p> ' + data_text[i] + '</p>'
+    pages = get_title_result(query)
+    
+    #print("Len Titoli: ", len(data_title), "Len testo: ", len(data_text))
+    #for title , page in data_title, data_text:
+    for page in pages:
+        link = get_wiki_link(page[0])
+        text += '<a href="' + link +'""> ' + page[0] + '</a>'
+        text += '<p> ' + page[1] + '</p>'
     text += '</pre></form>'
     return text
 
