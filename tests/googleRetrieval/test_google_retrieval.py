@@ -12,6 +12,7 @@ import urllib
 import simplejson as json
 import requests
 import io
+import urllib
 from googleapiclient.discovery import build
 import pprint
 
@@ -31,13 +32,14 @@ print("my_cse_id: ", my_cse_id)
 
 def save_data_to_JSON(query_list):
     for query in query_list:
-        results = google_search(query, my_api_key, my_cse_id, num=10)
-        file_name = query+".json"
-        with io.open(file_name,"w") as f:
-            for result in results:
-              #  pprint.pprint(result)
-                json.dump(result,f)
-                f.write("\n")
+        for i_start in 0,1,2:
+            results = google_search(query, my_api_key, my_cse_id, num=10, start = i_start*10)
+            file_name = query+".json"
+            with io.open(file_name,"a+") as f:
+                for result in results:
+                  #  pprint.pprint(result)
+                    json.dump(result,f)
+                    f.write("\n")
 def read_line(list):
     table = []
     for l in list:  
@@ -54,17 +56,32 @@ def read_line(list):
         print(c, " ",row['link'])
         c+=1
     print(len(table))
-    
+def download_web_pages(query_list):
+    for x in query_list:
+        with open(x+".json", 'r') as f:
+            for line in f:
+
+                el = json.loads(line)
+                url = el['link']
+                response = urllib.request.urlopen(url)
+                webContent = response.read()
+                html_file_name = el['title'].replace(" - Wikipedia","")         
+                p = open(html_file_name+".html", 'wb')
+                p.write(webContent)
+                p.close
+                print("saved: ",html_file_name)
+    print("")
 if __name__ == "__main__":
-    
+    '''
     list = ["DNA","Hollywood","Apple","Epigenetics","Maya","Microsoft","Precision","Tuscany","99 balloons","Computer Programming"\
             ,"Financial meltdown","Justin Timberlake","Least Squares", "Mars robots","Page six",\
             "Roman Empire", "Solar energy", "Statistical Significance", "Steve Jobs", \
             "The Maya", "Triple Cross", "US Constitution", "Eye of Horus", "Madam I'm Adam", \
             "Mean Average Precision", "Physics Nobel Prizes", "Read the manual",\
             "Spanish Civil War", "Do geese see god", "Much ado about nothing"]
+    '''
     #print(list)
    # list2 = ["DNA","Hollywood"]
-  #  save_data_to_JSON(list)
-    read_line(list)
-    
+   # save_data_to_JSON(list)
+    download_web_pages(["DNA"])
+        
