@@ -38,10 +38,14 @@ def do_research():
     
     #print("Len Titoli: ", len(data_title), "Len testo: ", len(data_text))
     #for title , page in data_title, data_text:
-    for page in pages:
-        link = get_wiki_link(page[0])
-        text += '<a href="' + link +'""> ' + page[0] + '</a>'
-        text += '<p> ' + page[1] + '</p>'
+    if pages != None:
+      
+        for page in pages:
+            link = get_wiki_link(page[0])
+            text += '<a href="' + link +'""> ' + page[0] + '</a>'
+            text += '<p> ' + page[1] + '</p>'
+    else:
+        text += '<h3> NO RESULTS </h3>'
     text += '</pre></form>'
     return text
 
