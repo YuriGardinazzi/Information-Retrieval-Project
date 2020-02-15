@@ -4,7 +4,7 @@ Hello world of a webpage made with bottle
 """
 
 from bottle import route, run, error, request, get, post
-from main import get_title_result
+from main import get_retrieved_pages
 
 SEARCH_BAR = '''
         <form action="/search" method="post">
@@ -34,7 +34,7 @@ def do_research():
     text = SEARCH_BAR
 
     text += '<form"><pre>'
-    pages = get_title_result(query)
+    pages = get_retrieved_pages(query)
     
     #print("Len Titoli: ", len(data_title), "Len testo: ", len(data_text))
     #for title , page in data_title, data_text:

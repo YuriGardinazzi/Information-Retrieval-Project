@@ -10,7 +10,7 @@ import io
 def get_google_ranking():
     """This function returns a dictionary where 
     key = Title
-    value = List of the first 10 results"""
+    value = List of the first 10 results with associated relevance"""
     res = {}
     path="google_results"
     files = [f for f in listdir(path) if isfile(join(path, f))]

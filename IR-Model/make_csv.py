@@ -1,5 +1,5 @@
 from index_statistics import get_google_ranking
-from main import get_title_result
+from main import get_retrieved_pages
 import math
 
 SEPARATOR = ";"
@@ -9,24 +9,30 @@ def calculate_statistics():
     dict_google_results = get_google_ranking()
     MAP = 0
 
-    for key in dict_google_results:
+    for key in dict_google_results.keys():
         average_precision_query = 0
         contRelevant = 0 
         sumRelevance = 0
         relevance = []
 
-        list_titles = get_title_result(key)
-        list_titles = [x[:-1] for x in list_titles[0]]
-
-        list_google_titles = [x for x,_ in dict_google_results[key]]
-        relevance_google =  [x for _,x in dict_google_results[key]]
+        r_pages = get_retrieved_pages(key) #list of tuples (title, text_page)
+        list_titles = [x[0] for x in r_pages] #retrieved titles
+        
+        google_title_and_relevance = dict_google_results[key] #list of tuples (title,relevance)
+        list_google_titles = [x[0] for x in dict_google_results[key]] #google retrieved titles
+        relevance_google =  [x[1] for x in dict_google_results[key]] #google retrieved relevance
  
-        for i in range(len(list_titles)):
-            if list_titles[i] in list_google_titles:
+        #print("KEY: ", key,"\nLIST:",list_google_titles, end ="\n\n")
+        for t in list_titles:
+            #t[:-1] to remove \n at the end of the tiltes
+            if t[:-1] in list_google_titles:
                 contRelevant += 1
                 #precision.append(contRelevant / i)
-                sumRelevance += (contRelevant / (i + 1))
-                relevance.append(relevance_google[list_google_titles.index(list_titles[i])])
+                pos = list_google_titles.index(t[:-1])
+               # print(pos)
+                sumRelevance += (contRelevant / (pos + 1))
+                relevance.append(relevance_google[pos])
+                #relevance.append(relevance_google[list_google_titles.index(list_titles[i])])
             else:
                 relevance.append(0)
         if len(list_google_titles) != 0:

@@ -76,15 +76,15 @@ def make_query(text, model):
             print("-----------------------------------------------------------------")
           #3  print(Calculator.findWordInQuery(text, x))
         print("Results found: ", num)
-def get_title_result(text, model="default"):
+def get_retrieved_pages(text, model="default"):
     Ind = Index()
     result = Ind.makeQuery(text,model)
     if result != None:
-        num = len(result)
         result_pages=[]
         for x in result:
               result_pages.append((x['title'], x['textdata'][:100]))
         return result_pages
+
 if __name__ == "__main__":
     
     while True:
