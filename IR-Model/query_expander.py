@@ -8,7 +8,7 @@ Query Expansion
 """
 
 from nltk.corpus import wordnet
-from nltk.tokenize import  word_tokenize
+from nltk.tokenize import word_tokenize
 
 def queryExpander(old_query):
     while True: 
