@@ -18,29 +18,23 @@ def calculate_statistics():
         r_pages = get_retrieved_pages(key) #list of tuples (title, text_page)
         list_titles = [x[0] for x in r_pages] #retrieved titles
         
-        google_title_and_relevance = dict_google_results[key] #list of tuples (title,relevance)
+        #google_title_and_relevance = dict_google_results[key] #list of tuples (title,relevance)
         list_google_titles = [x[0] for x in dict_google_results[key]] #google retrieved titles
         relevance_google =  [x[1] for x in dict_google_results[key]] #google retrieved relevance
  
-        #print("KEY: ", key,"\nLIST:",list_google_titles, end ="\n\n")
+        
         for t in list_titles:
             #t[:-1] to remove \n at the end of the tiltes
             if t[:-1] in list_google_titles:
                 contRelevant += 1
-                #precision.append(contRelevant / i)
-                pos = list_google_titles.index(t[:-1])
-               # print(pos)
+
+                pos = list_titles.index(t) #t[:-1] because in this list files are saved with \n
                 sumRelevance += (contRelevant / (pos + 1))
                 relevance.append(relevance_google[pos])
-                print(key, "\n\tSumRelevance:   ",sumRelevance, " = ", contRelevant,"/ ", pos, "+", 1)
-                print("\tSumRelevance/10:", sumRelevance/10, end="\n\n")
-                #relevance.append(relevance_google[list_google_titles.index(list_titles[i])])
             else:
                 relevance.append(0)
-        if len(list_google_titles) != 0:
-            
+        if len(list_google_titles) != 0:            
             average_precision_query = sumRelevance / len(list_google_titles)
-            #print(sumRelevance, " ", average_precision_query)
         
         # Calcolo DCG e iDCG
         ordered_relevance = relevance.copy()
