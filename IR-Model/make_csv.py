@@ -32,13 +32,15 @@ def calculate_statistics():
                # print(pos)
                 sumRelevance += (contRelevant / (pos + 1))
                 relevance.append(relevance_google[pos])
+                print(key, "\n\tSumRelevance:   ",sumRelevance, " = ", contRelevant,"/ ", pos, "+", 1)
+                print("\tSumRelevance/10:", sumRelevance/10, end="\n\n")
                 #relevance.append(relevance_google[list_google_titles.index(list_titles[i])])
             else:
                 relevance.append(0)
         if len(list_google_titles) != 0:
             
             average_precision_query = sumRelevance / len(list_google_titles)
-            print(sumRelevance, " ", average_precision_query)
+            #print(sumRelevance, " ", average_precision_query)
         
         # Calcolo DCG e iDCG
         ordered_relevance = relevance.copy()
