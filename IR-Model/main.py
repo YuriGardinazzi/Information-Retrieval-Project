@@ -6,6 +6,9 @@ Main file of the search-engine
 
 from dump_splitter import WikiSplitter
 from index_creator import Index
+
+from whoosh.index import open_dir
+from whoosh.qparser import QueryParser
 from remove_duplicates import remove_duplicate_files
 
 def display_menu():
@@ -13,7 +16,8 @@ def display_menu():
           1. Create Index
           2. Create Pages
           3. Search something
-          4. Exit
+          4. Get Suggestion
+          5. Exit
           """)
     answer = input("What would you like to do? ")
     if answer == "1":
@@ -26,6 +30,9 @@ def display_menu():
         query = str(input("Insert a term to search: "))
         choose_model(query)
     elif answer == "4":
+        query = str(input("Insert a term to search: "))
+        print(getSuggestion(query))
+    elif answer == "5":
         raise SystemExit
     else:
         print("Invalid choice!")
@@ -78,6 +85,18 @@ def make_query(text, model):
             print("-----------------------------------------------------------------")
         print("Results found: ", num)
         
+def getSuggestion(input_query,num = 3, index_directory ='index_dir'):
+         ix = open_dir(index_directory)
+         searcher = ix.searcher()
+         parser = QueryParser("nTitle", schema=ix.schema)
+         query = parser.parse(input_query)
+         results = searcher.search(query)
+         dim_res = len(results)
+
+         if (dim_res > num):
+             return [x['title'][:-1] for x in results[:num]]
+         else:
+             return [x['title'][:-1] for x in results[:num]]       
 def get_retrieved_pages(text, model="default"):
     Ind = Index()
     result = Ind.makeQuery(text,model)

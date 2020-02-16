@@ -39,7 +39,8 @@ class Index:
         #creation of the schema
         self.directory = index_directory
         self.files_path = input_files
-        self.schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT,textdata= TEXT(stored=True), nTitle= NGRAM(2,4))
+        #NGRAMWORDS è meglio di NGRAM perché non considera la punteggiatura e gli spazi
+        self.schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT,textdata= TEXT(stored=True), nTitle= NGRAMWORDS(2,4))
 
     def createSchema(self): #aggiungere parametri per schemi personalizzati
         '''create a schema for the index'''
@@ -73,12 +74,12 @@ class Index:
                 writer.add_document(title=doc_title, path=path, content=text,textdata=text, nTitle=doc_title)
                 fp.close()
         writer.commit()
-    
+
+             
+         
     def makeQuery(self,input_query, weighting, index_directory = 'index_dir'):
         '''Input_query = query to search
            index_diretory: if different from index_dir'''
-        if index_directory != self.directory:
-            self.directory
            
         ix = open_dir(index_directory)
 
