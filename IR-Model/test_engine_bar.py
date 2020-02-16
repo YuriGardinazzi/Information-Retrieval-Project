@@ -9,7 +9,7 @@ from bottle import template
 
 SEARCH_BAR = '''
         <form action="/search" method="post">
-            <input type="text" id="query" name="query" placeholder="Search..." value={{value}}>
+            <input type="text" id="query" name="query" placeholder="Search..." value="{{value}}">
             <input type="submit" name="search" value="Search">
         </form>  
     '''
