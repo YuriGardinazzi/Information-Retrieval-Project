@@ -14,8 +14,10 @@ def calculate_statistics():
         contRelevant = 0 
         sumRelevance = 0
         relevance = []
-
+        print(key)
         r_pages = get_retrieved_pages(key) #list of tuples (title, text_page)
+        if r_pages == None:
+            continue
         list_titles = [x[0] for x in r_pages] #retrieved titles
         
         #google_title_and_relevance = dict_google_results[key] #list of tuples (title,relevance)

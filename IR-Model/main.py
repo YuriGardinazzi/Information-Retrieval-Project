@@ -82,7 +82,7 @@ def get_retrieved_pages(text, model="default"):
     if result != None:
         result_pages=[]
         for x in result:
-              result_pages.append((x['title'], x['textdata'][:100]))
+              result_pages.append((x['title'], x['textdata']))
         return result_pages
 
 if __name__ == "__main__":
