@@ -103,6 +103,9 @@ def do_research():
 def index():
     return search()
 
+@error(500)
+def error500(error):
+    return search()
 @error(404)
 def error404(error):
     return 'Nothing here, sorry'
