@@ -5,10 +5,11 @@ Hello world of a webpage made with bottle
 
 from bottle import route, run, error, request, get, post
 from main import get_retrieved_pages
+from bottle import template
 
 SEARCH_BAR = '''
         <form action="/search" method="post">
-            <input type="text" id="query" name="query" placeholder="Search...">
+            <input type="text" id="query" name="query" placeholder="Search..." value={{value}}>
             <input type="submit" name="search" value="Search">
         </form>  
     '''
@@ -25,7 +26,7 @@ def get_wiki_link(el):
 
 @get('/search')
 def search():
-    return SEARCH_BAR
+    return template(SEARCH_BAR, value="")
 
 @post('/search')
 def do_research():
@@ -47,7 +48,7 @@ def do_research():
     else:
         text += '<h3> NO RESULTS </h3>'
     text += '</pre></form>'
-    return text
+    return template(text, value = query)
 
 @route('/')
 def index():
