@@ -39,12 +39,12 @@ class Index:
         #creation of the schema
         self.directory = index_directory
         self.files_path = input_files
-        self.schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT, textdata=TEXT(stored=True))
+        self.schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT,textdata= TEXT(stored=True), nTitle= NGRAM(2,4))
 
     def createSchema(self): #aggiungere parametri per schemi personalizzati
         '''create a schema for the index'''
-        self.schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT, textdata=TEXT(stored=True))
-        
+        self.schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT,textdata= TEXT(stored=True), nTitle= NGRAM(2,4))
+       
     def createIndex(self):
         ''' Create an index and delete existing ones'''
         #check if there's a directory
@@ -70,7 +70,7 @@ class Index:
                 text = fp.read()
                 
                 #title it's not the real title of the document but just the filename
-                writer.add_document(title=doc_title, path=path, content=text,textdata=text)
+                writer.add_document(title=doc_title, path=path, content=text,textdata=text, nTitle=doc_title)
                 fp.close()
         writer.commit()
     
