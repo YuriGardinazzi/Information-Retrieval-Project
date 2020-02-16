@@ -80,6 +80,7 @@ def make_query(text, model):
         for x in result:
             print("*********************\n TITLE:")
             print(x['title'])
+            print("PATH: ", x['path'])
             print("-----------------------------------------------------------------")
             print(x['textdata'][:100])
             print("-----------------------------------------------------------------")
