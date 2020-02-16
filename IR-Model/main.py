@@ -6,24 +6,33 @@ Main file of the search-engine
 
 from dump_splitter import WikiSplitter
 from index_creator import Index
-#import calc as Calculator
+
+from whoosh.index import open_dir
+from whoosh.qparser import QueryParser
+from remove_duplicates import remove_duplicate_files
 
 def display_menu():
     print("""
           1. Create Index
           2. Create Pages
           3. Search something
-          4. Exit
+          4. Get Suggestion
+          5. Exit
           """)
     answer = input("What would you like to do? ")
     if answer == "1":
         create_index()
     elif answer == "2":
         split_files()
+        #remove duplicates as well
+        remove_duplicate_files()
     elif answer == "3":
         query = str(input("Insert a term to search: "))
         choose_model(query)
     elif answer == "4":
+        query = str(input("Insert a term to search: "))
+        print(getSuggestion(query))
+    elif answer == "5":
         raise SystemExit
     else:
         print("Invalid choice!")
@@ -38,16 +47,13 @@ def choose_model(query):
     answer = input("Choose Model to use: ")
     if answer == "1":
         print("Default model selected!")
-        make_query(query, "default", False)
-        repeat_query(query, "default")
+        make_query(query, "default")
     elif answer == "2":
         print("Cosine weighting model selected!")
-        make_query(query, "cosine", False)
-        repeat_query(query, "cosine")
+        make_query(query, "cosine")
     elif answer == "3":
         print("PL2 weighting model selected!")
-        make_query(query, "pl2", False)
-        repeat_query(query, "pl2")
+        make_query(query, "pl2")
     elif answer == "4":
         print("Going back!")
         display_menu()
@@ -66,9 +72,9 @@ def create_index():
     Ind.createIndex()
     print("Finished indexing")
     
-def make_query(text, model, expanse_val):
+def make_query(text, model):
     Ind = Index()  
-    result = Ind.makeQuery(text, model, expanse_val)
+    result = Ind.makeQuery(text, model)
     if result != None:
         num = len(result)
         for x in result:
@@ -77,30 +83,29 @@ def make_query(text, model, expanse_val):
             print("-----------------------------------------------------------------")
             print(x['textdata'][:100])
             print("-----------------------------------------------------------------")
-          #3  print(Calculator.findWordInQuery(text, x))
         print("Results found: ", num)
-    else:
-        print("Vuoto")
-def repeat_query(query, model):
-    answer = input("Do you want to expand the query? ")
-    if answer == "yes" or "Yes" or "YES" or "Y" or "y":
-        make_query(query, model, True)
-    else:
-        display_menu()
-    
-    
-def get_title_result(text, model="default"):
+        
+def getSuggestion(input_query,num = 3, index_directory ='index_dir'):
+         ix = open_dir(index_directory)
+         searcher = ix.searcher()
+         parser = QueryParser("nTitle", schema=ix.schema)
+         query = parser.parse(input_query)
+         results = searcher.search(query)
+         dim_res = len(results)
+
+         if (dim_res > num):
+             return [x['title'][:-1] for x in results[:num]]
+         else:
+             return [x['title'][:-1] for x in results[:num]]       
+def get_retrieved_pages(text, model="default"):
     Ind = Index()
     result = Ind.makeQuery(text,model)
     if result != None:
-        num = len(result)
-        data_title=[]
-        data_text=[]
+        result_pages=[]
         for x in result:
-              data_title.append(x['title'])
-              data_text.append(x['textdata'][:100])
-        return data_title, data_text
-    
+              result_pages.append((x['title'], x['textdata'][:300]))
+        return result_pages
+
 if __name__ == "__main__":
     
     while True:
