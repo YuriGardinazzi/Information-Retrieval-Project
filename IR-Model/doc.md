@@ -18,3 +18,5 @@ For each query:
 
 ^With this values we can find: average precision and NDCG
 With the average precision of all queries we can find MAP
+
+![Test_1](charts/test_1.png)

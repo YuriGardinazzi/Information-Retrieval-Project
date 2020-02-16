@@ -4,6 +4,7 @@ This file splits custom_wikipedia.xml into single .txt files inside the folder "
 """
 import xml.sax
 import os.path, io
+from xml.sax.saxutils import escape
 from cleaner import Cleaner
 
 
@@ -19,32 +20,41 @@ class PagesHandler( xml.sax.ContentHandler):
         self.MAX_PAGE = 3000
         self.MIN_BYTES = 100
         self.bytes = 0
-        self.format = ""
+      #  self.format = ""
 
     def startElement(self, tag, attributes):
         """Call when an element starts"""
         self.CurrentData = tag
 
-        #if tag == "page":
-            #if self.pageCounter < self.MAX_PAGE:
-                #print("inizio pagina #", self.pageCounter)
+        if tag == "page":
+            if self.pageCounter < self.MAX_PAGE:
+                print("inizio pagina #", self.pageCounter)
         if tag == "text":
-            self.bytes = int(attributes["bytes"])
+            try:
+                self.bytes = int(attributes["bytes"])
+            except:
+                self.bytes = self.MIN_BYTES
+                pass
 
     def endElement(self, tag):
         """Call when an element ends"""
         if tag == "page":
-            if self.format == "text/x-wiki":
-                self.pageCounter += 1
-                if self.pageCounter < self.MAX_PAGE and self.bytes >= self.MIN_BYTES:
-                    #print("fine pagina")
-                    self.savePage()
-            else:
-                self.title = ""
-                self.text = ""
-                self.format = ""
-                self.bytes = 0
-                return
+            #if self.format == "text/x-wiki":
+            self.pageCounter += 1
+#            if self.pageCounter < self.MAX_PAGE and self.bytes >= self.MIN_BYTES:
+#                #print("fine pagina")
+#                self.savePage()
+#            
+#            else:
+            print("fine pagina")
+            self.savePage()
+            self.title = ""
+            self.text = ""
+              #  self.format = ""
+            self.page = ""
+            self.bytes = 0
+        elif tag == "title":
+            print(self.title)
         #reset current data field because the element ended
         self.CurrentData = ""
 
@@ -54,12 +64,13 @@ class PagesHandler( xml.sax.ContentHandler):
             self.title += content
         elif self.CurrentData == "text":
             self.text += content
-        elif self.CurrentData == "format":
-            self.format += content
+       # elif self.CurrentData == "format":
+           # self.format += content
 
     def savePage(self):
         """Save id,title,text attributes in a file named self.pageCounter.txt"""
-        data = self.title +"\n"+ Cleaner().page_cleaner(self.text)
+        #data = self.title +"\n"+ Cleaner().page_cleaner(self.text)
+        data = self.title +"\n"+ self.text
 
         
         filename = str(self.pageCounter)+ ".txt"
@@ -74,6 +85,8 @@ class PagesHandler( xml.sax.ContentHandler):
         file.close()
 
         #print(r'Saved file: ',self.pageCounter, ".txt")
+
+
 
 class WikiSplitter():
     '''Splitter class, it splits a dump into many *.txt files inside a folder'''
