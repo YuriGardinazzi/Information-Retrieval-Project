@@ -6,7 +6,6 @@ Main file of the search-engine
 
 from dump_splitter import WikiSplitter
 from index_creator import Index
-#import calc as Calculator
 from remove_duplicates import remove_duplicate_files
 
 def display_menu():
@@ -22,6 +21,8 @@ def display_menu():
         create_index()
     elif answer == "2":
         split_files()
+        #remove duplicates as well
+        remove_duplicate_files()
     elif answer == "3":
         query = str(input("Insert a term to search: "))
         choose_model(query)
