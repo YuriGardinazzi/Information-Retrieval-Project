@@ -13,7 +13,6 @@ def remove_equal_entries():
     	        lines_seen.add(each_line)
                 
 def remove_duplicate_files():
-    import sys
     import os
     import hashlib
 
@@ -79,8 +78,7 @@ def remove_duplicate_files():
     try:
         hashfun = hashlib.sha256
         remove_duplicates("pages", hashfun)
-        print("""\n
-              Removed duplicates!\n""")
+        print("\nRemoved duplicates!\n")
     except IndexError:
         print ("Please pass a path to a directory with duplicate files as a parameter to the script.")
     

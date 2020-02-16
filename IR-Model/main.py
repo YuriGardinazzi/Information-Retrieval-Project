@@ -13,8 +13,7 @@ def display_menu():
           1. Create Index
           2. Create Pages
           3. Search something
-          4. Delete duplicate pages
-          5. Exit
+          4. Exit
           """)
     answer = input("What would you like to do? ")
     if answer == "1":
@@ -26,9 +25,7 @@ def display_menu():
     elif answer == "3":
         query = str(input("Insert a term to search: "))
         choose_model(query)
-    elif answer == "4":   
-        remove_duplicate_files()
-    elif answer == "5":
+    elif answer == "4":
         raise SystemExit
     else:
         print("Invalid choice!")
