@@ -6,7 +6,6 @@ Main file of the search-engine
 
 from dump_splitter import WikiSplitter
 from index_creator import Index
-#import calc as Calculator
 
 def display_menu():
     print("""
@@ -74,8 +73,8 @@ def make_query(text, model):
             print("-----------------------------------------------------------------")
             print(x['textdata'][:100])
             print("-----------------------------------------------------------------")
-          #3  print(Calculator.findWordInQuery(text, x))
         print("Results found: ", num)
+        
 def get_retrieved_pages(text, model="default"):
     Ind = Index()
     result = Ind.makeQuery(text,model)

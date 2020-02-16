@@ -41,7 +41,6 @@ class Index:
         self.files_path = input_files
         self.schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT, textdata=TEXT(stored=True))
 
-   
     def createSchema(self): #aggiungere parametri per schemi personalizzati
         '''create a schema for the index'''
         self.schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT, textdata=TEXT(stored=True))
@@ -60,8 +59,8 @@ class Index:
         print("Created index")
         
         writer = ix.writer()
+        
         #adding entries to the index
-
         filepaths = [os.path.join(self.files_path,i) for i in os.listdir(self.files_path)]
         print("Documents read: ", filepaths)
         for path in filepaths:
@@ -69,6 +68,7 @@ class Index:
                 doc_title = fp.readline()
                 print(path, " ", doc_title)
                 text = fp.read()
+                
                 #title it's not the real title of the document but just the filename
                 writer.add_document(title=doc_title, path=path, content=text,textdata=text)
                 fp.close()
@@ -89,7 +89,6 @@ class Index:
         elif(weighting == "pl2"):
             searcher = ix.searcher(weighting=PL2)
             
-                 
         parser = QueryParser("content", schema=ix.schema)
         query = parser.parse(input_query)  
         
@@ -101,7 +100,6 @@ class Index:
         else:
             results = searcher.search(query)
                 
-            
         if len(results) == 0:
             print("Empty Result")
             return None
