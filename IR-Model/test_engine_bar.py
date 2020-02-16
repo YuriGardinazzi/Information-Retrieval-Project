@@ -67,6 +67,7 @@ def get_wiki_link(el):
 
 @route('/get_sugg/<value>')
 def test_char(value):
+    print("INPUT:  ",value)
     sugg = getSuggestion(value)
     ris ={ "num": len(sugg)}
     if len(ris) != 0:
@@ -105,6 +106,7 @@ def index():
 
 @error(500)
 def error500(error):
+    print(error)
     return search()
 @error(404)
 def error404(error):
@@ -112,4 +114,4 @@ def error404(error):
 
 if __name__ == "__main__":
   
-    run(host='localhost', port=8080, reload=True)
+    run(host='localhost', port=8080)
