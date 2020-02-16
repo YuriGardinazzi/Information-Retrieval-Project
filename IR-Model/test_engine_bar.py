@@ -6,12 +6,31 @@ Hello world of a webpage made with bottle
 from bottle import route, run, error, request, get, post
 from main import get_retrieved_pages
 from bottle import template
-
+variable = ["er", "e"]
 SEARCH_BAR = '''
         <form action="/search" method="post">
-            <input type="text" id="query" name="query" placeholder="Search..." value="{{value}}">
+            <input list="suggestion" onkeypress="setSuggestion()" type="text" id="query" name="query" placeholder="Search..." value="{{value}}">
+                  <datalist id="suggestion">   
+                               
+                  </datalist>
             <input type="submit" name="search" value="Search">
-        </form>  
+        </form>
+        <script>
+            function setSuggestion()
+            {
+                var ar = new Array();
+                ar[0]='val1';
+                ar[1]='val';
+                ar[1]='val hei';
+
+                var options = '';
+
+                for(var i = 0; i < ar.length; i++)
+                  options += '<option value="'+ ar[i] +'" />';
+
+                document.getElementById('suggestion').innerHTML = options;
+            }
+        </script>
     '''
 
 def get_wiki_link(el):
