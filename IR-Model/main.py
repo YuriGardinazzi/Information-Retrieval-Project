@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-Main file of the search-engine
+Main file to use the search engine from terminal
 """
 
 from dump_splitter import WikiSplitter
@@ -142,7 +142,6 @@ def get_retrieved_pages(text, model="default"):
               result_pages.append((x['title'], x['textdata'][:300]))
         return result_pages
 
-#if __name__ == "__main__":
-#    
-#    while True:
-#        display_menu()
+if __name__ == "__main__":
+    while True:
+        display_menu()

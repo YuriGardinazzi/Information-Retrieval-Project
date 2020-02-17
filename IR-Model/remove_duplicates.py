@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Remove duplicates line from a text file
+This file contains multiple function usefull to delete duplicates
 """
 import io
 
 def remove_equal_entries():
+    '''remove duplicate entries in a text file '''
     lines_seen = set() # holds lines already seen
     with io.open("list_without_duplicates.txt", "w", encoding="utf-8") as output_file:
     	for each_line in io.open("list_for_exportpages.txt", "r",encoding ="utf-8"):
@@ -13,6 +14,7 @@ def remove_equal_entries():
     	        lines_seen.add(each_line)
                 
 def remove_duplicate_files():
+    '''remove duplicate files in the folder pages'''
     import os
     import hashlib
     def read_chunk(fobj, chunk_size = 2048):
