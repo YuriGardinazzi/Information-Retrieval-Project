@@ -4,7 +4,7 @@ Hello world of a webpage made with bottle
 """
 
 from bottle import route, run, error, request, get, post
-from main import get_retrieved_pages, getSuggestion
+from main import get_retrieved_pages, getSuggestion, get_did_you_mean
 from bottle import template
 variable = ["er", "e"]
 SEARCH_BAR = '''
@@ -85,12 +85,15 @@ def do_research():
     text = SEARCH_BAR
 
     text += '<form"><pre>'
+    
+    didyoumean = get_did_you_mean(query)
     pages = get_retrieved_pages(query)
     
     #print("Len Titoli: ", len(data_title), "Len testo: ", len(data_text))
     #for title , page in data_title, data_text:
     if pages != None:
-      
+        if didyoumean[0]:
+            text +=  '<h4> Results for: ' + didyoumean[1] + '</h4>'
         for page in pages:
             link = get_wiki_link(page[0])
             text += '<a href="' + link +'""> ' + page[0] + '</a>'

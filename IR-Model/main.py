@@ -17,7 +17,8 @@ def display_menu():
           2. Create Pages
           3. Search something
           4. Get Suggestion
-          5. Exit
+          6. Try Did you mean
+          7. Exit
           """)
     answer = input("What would you like to do? ")
     if answer == "1":
@@ -32,7 +33,10 @@ def display_menu():
     elif answer == "4":
         query = str(input("Insert a term to search: "))
         print(getSuggestion(query))
-    elif answer == "5":
+    elif answer == "6":
+        query = str(input("Insert a term to search: "))
+        print(get_did_you_mean(query))
+    elif answer == "7":
         raise SystemExit
     else:
         print("Invalid choice!")
@@ -56,7 +60,6 @@ def choose_model(query):
         make_query(query, "pl2")
     elif answer == "4":
         print("Going back!")
-        display_menu()
     else:
         print("Invalid choice!")
     
@@ -98,6 +101,18 @@ def getSuggestion(input_query,num = 3, index_directory ='index_dir'):
              return [x['title'][:-1] for x in results[:num]]
          else:
              return [x['title'][:-1] for x in results[:num]]       
+
+def get_did_you_mean(input_query,index_directory ='index_dir'):
+     ix = open_dir(index_directory)
+     searcher = ix.searcher()
+     parser = QueryParser("content", schema=ix.schema)
+     query = parser.parse(input_query) 
+     #Query-corrector
+     corrected = searcher.correct_query(query, input_query)
+     if corrected.query != query:
+         return(True, corrected.string)
+     return(False, input_query)
+    
 def get_retrieved_pages(text, model="default"):
     Ind = Index()
     result = Ind.makeQuery(text,model)
