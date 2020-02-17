@@ -80,7 +80,7 @@ def create_index():
     Ind.createIndex()
     print("Finished indexing")
     
-def make_query(text, model):
+def make_query(text, model="default"):
     Ind = Index()  
     result = Ind.makeQuery(text, model)
     if result != None:
@@ -133,7 +133,7 @@ def get_did_you_mean(input_query,index_directory ='index_dir'):
          return(True, corrected.string)
      return(False, input_query)
     
-def get_retrieved_pages(text, model):
+def get_retrieved_pages(text, model="default"):
     Ind = Index()
     result = Ind.makeQuery(text,model)
     if result != None:
