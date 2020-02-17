@@ -85,7 +85,7 @@ def make_query(text, model):
             print("-----------------------------------------------------------------")
         print("Results found: ", num)
         
-    print("EXPANDED QUERY: ")
+    print("\nEXPANDED QUERY: ")
     if result_expanded != None:
         num = len(result_expanded)
         for x in result_expanded:
