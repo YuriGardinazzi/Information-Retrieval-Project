@@ -7,6 +7,10 @@ from os import listdir
 from os.path import isfile, join
 import os
 import io
+"""
+File used to generate first 10 google results for each test query,
+it reads those results from the folder google_results
+"""
 def get_google_ranking():
     """This function returns a dictionary where 
     key = Title

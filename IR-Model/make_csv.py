@@ -2,6 +2,9 @@ from index_statistics import get_google_ranking
 from main import get_retrieved_pages
 import math
 
+"""This file creates a file statistics.csv that contains the Average precision and MAP 
+for a set of queries"""
+
 SEPARATOR = ";"
 
 def calculate_statistics():
