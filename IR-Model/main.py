@@ -69,10 +69,10 @@ def choose_model(query):
         print("Invalid choice!")
     
 def split_files():
-    print("Start splitting")
+
     splitter = WikiSplitter()
     splitter.splitFiles()  
-    print("Finished splitting")
+
     
 def create_index():
     print("Start indexing")

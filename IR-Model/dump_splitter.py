@@ -17,44 +17,22 @@ class PagesHandler( xml.sax.ContentHandler):
         self.title = ""
         self.text = ""
         self.pageCounter = 0
-        self.MAX_PAGE = 3000
-        self.MIN_BYTES = 100
-        self.bytes = 0
-      #  self.format = ""
+
 
     def startElement(self, tag, attributes):
         """Call when an element starts"""
         self.CurrentData = tag
 
-        if tag == "page":
-            if self.pageCounter < self.MAX_PAGE:
-                print("inizio pagina #", self.pageCounter)
-        if tag == "text":
-            try:
-                self.bytes = int(attributes["bytes"])
-            except:
-                self.bytes = self.MIN_BYTES
-                pass
-
     def endElement(self, tag):
         """Call when an element ends"""
         if tag == "page":
-            #if self.format == "text/x-wiki":
-            self.pageCounter += 1
-#            if self.pageCounter < self.MAX_PAGE and self.bytes >= self.MIN_BYTES:
-#                #print("fine pagina")
-#                self.savePage()
-#            
-#            else:
-            print("fine pagina")
             self.savePage()
+            self.pageCounter+=1
             self.title = ""
             self.text = ""
-              #  self.format = ""
+
             self.page = ""
             self.bytes = 0
-        elif tag == "title":
-            print(self.title)
         #reset current data field because the element ended
         self.CurrentData = ""
 
