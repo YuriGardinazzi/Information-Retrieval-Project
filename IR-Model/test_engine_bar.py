@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Hello world of a webpage made with bottle
+Code server side to generate the HTML page
 """
 
 from bottle import route, run, error, request, get, post
