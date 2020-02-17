@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Feb  9 18:24:22 2020
-
-@author: Yuri
+File  that contains class useful for the Index
 """
 
 from whoosh.index import create_in, open_dir
