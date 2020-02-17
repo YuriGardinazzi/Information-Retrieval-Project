@@ -19,8 +19,7 @@ from nltk.tokenize import word_tokenize
 
 class queryExpander():
     
-    def __init__(self, results, searcher, input_query):
-        self.results = results
+    def __init__(self, searcher, input_query):
         self.searcher = searcher
         self.input_query = input_query
         
@@ -40,8 +39,8 @@ class queryExpander():
         #update with idf
         for word, value in tokens.items():
             tokens[word] = WeightingModel.idf(self, searcher, "title", word) + WeightingModel.idf(self, searcher, "content", word)
-        #choose best term
-        best_term = min(tokens, key = tokens.get)
+        #choose best term (high idf = rare term -> can be used more effectively than a common one)
+        best_term = max(tokens, key = tokens.get)
         return best_term
     
 #    def preProcess(data):
@@ -104,9 +103,10 @@ class queryExpander():
 #        return data
     
     
-    def buildExpandedQuery(self, results, searcher, input_query):
+    def buildExpandedQuery(self, searcher, input_query):
         #find term
-        term = self.calcTfIdf(self, results, self.tokenizeQuery(self, input_query))
+        tokens = self.tokenizeQuery(self, input_query)
+        term = self.calcTfIdf(self, searcher, tokens)
         
         #find synonyms of a certain word
         synonyms = []
@@ -128,7 +128,7 @@ class queryExpander():
         transf = synonyms[answer].lower().replace("_", " ")
         new_query = " ".join([str(input_query), transf])
         
-        print("query expanded")
+        print("query expanded: " + new_query)
         return new_query
     
    

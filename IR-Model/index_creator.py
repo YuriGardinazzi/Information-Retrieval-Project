@@ -103,8 +103,9 @@ class Index:
         else:
             results = searcher.search(query)
                 
-        new_query = qe.buildExpandedQuery(self, results, searcher, input_query)
-        results_expanded = searcher.search(new_query)
+        new_query = qe.buildExpandedQuery(qe, searcher, input_query)
+        new_query_parsed = parser.parse(new_query)
+        results_expanded = searcher.search(new_query_parsed)
         
         if len(results) == 0 or len(results_expanded) == 0:
             print("Empty Result")
