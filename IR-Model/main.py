@@ -142,7 +142,7 @@ def get_retrieved_pages(text, model="default"):
               result_pages.append((x['title'], x['textdata'][:300]))
         return result_pages
 
-if __name__ == "__main__":
-    
-    while True:
-        display_menu()
+#if __name__ == "__main__":
+#    
+#    while True:
+#        display_menu()

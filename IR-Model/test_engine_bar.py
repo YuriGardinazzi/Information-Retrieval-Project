@@ -128,6 +128,6 @@ def error500(error):
 def error404(error):
     return 'Nothing here, sorry'
 
-if __name__ == "__main__":
-  
+#if __name__ == "__main__":
+def start():
     run(host='localhost', port=8080)
