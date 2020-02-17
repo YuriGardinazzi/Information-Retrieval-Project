@@ -58,7 +58,7 @@ def choose_model(query):
         print("Going back!")
         display_menu()
     else:
-        print("Invalid choice!")
+        print("Invalid choice!")    
     
 def split_files():
     print("Start splitting")
@@ -74,7 +74,7 @@ def create_index():
     
 def make_query(text, model):
     Ind = Index()  
-    result = Ind.makeQuery(text, model)
+    result, result_expanded = Ind.makeQuery(text, model)
     if result != None:
         num = len(result)
         for x in result:
@@ -85,6 +85,17 @@ def make_query(text, model):
             print("-----------------------------------------------------------------")
         print("Results found: ", num)
         
+    print("EXPANDED QUERY: ")
+    if result_expanded != None:
+        num = len(result_expanded)
+        for x in result_expanded:
+            print("*********************\n TITLE:")
+            print(x['title'])
+            print("-----------------------------------------------------------------")
+            print(x['textdata'][:100])
+            print("-----------------------------------------------------------------")
+        print("Results found: ", num)
+                
 def getSuggestion(input_query,num = 3, index_directory ='index_dir'):
          ix = open_dir(index_directory)
          searcher = ix.searcher()
@@ -105,6 +116,8 @@ def get_retrieved_pages(text, model="default"):
         for x in result:
               result_pages.append((x['title'], x['textdata'][:300]))
         return result_pages
+    
+    
 
 if __name__ == "__main__":
     

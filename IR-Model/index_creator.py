@@ -14,6 +14,8 @@ from whoosh.scoring import PL2
 
 from math import log
 
+from tfidf import queryExpander as qe
+
 import os, os.path, io, shutil
 
 class Cosine(Weighting):
@@ -101,10 +103,13 @@ class Index:
         else:
             results = searcher.search(query)
                 
-        if len(results) == 0:
+        new_query = qe.buildExpandedQuery(self, results, searcher, input_query)
+        results_expanded = searcher.search(new_query)
+        
+        if len(results) == 0 or len(results_expanded) == 0:
             print("Empty Result")
             return None
         else:
-            return results
+            return results, results_expanded
         
         
