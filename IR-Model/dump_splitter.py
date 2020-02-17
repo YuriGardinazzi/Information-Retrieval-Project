@@ -69,7 +69,8 @@ class PagesHandler( xml.sax.ContentHandler):
 
     def savePage(self):
         """Save id,title,text attributes in a file named self.pageCounter.txt"""
-        data = self.title +"\n"+ Cleaner().page_cleaner(self.text)
+        #data = self.title +"\n"+ Cleaner().page_cleaner(self.text)
+        data = self.title +"\n"+ self.text
 
         
         filename = str(self.pageCounter)+ ".txt"
