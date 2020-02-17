@@ -133,7 +133,7 @@ def get_did_you_mean(input_query,index_directory ='index_dir'):
          return(True, corrected.string)
      return(False, input_query)
     
-def get_retrieved_pages(text, model="default"):
+def get_retrieved_pages(text, model):
     Ind = Index()
     result = Ind.makeQuery(text,model)
     if result != None:
@@ -142,7 +142,7 @@ def get_retrieved_pages(text, model="default"):
               result_pages.append((x['title'], x['textdata'][:300]))
         return result_pages
 
-if __name__ == "__main__":
-    
-    while True:
-        display_menu()
+#if __name__ == "__main__":
+#    
+#    while True:
+#        display_menu()

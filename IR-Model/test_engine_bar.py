@@ -7,6 +7,8 @@ from bottle import route, run, error, request, get, post
 from main import get_retrieved_pages, getSuggestion, get_did_you_mean, get_expanded_terms
 from bottle import template
 variable = ["er", "e"]
+model = "default"
+
 SEARCH_BAR = '''
         <form action="/search" method="post">
             <input list="suggestion" oninput="setSuggestion()" type="text" id="query" name="query" placeholder="Search..." value="{{value}}">
@@ -93,7 +95,7 @@ def do_research():
         text += '<h4> added terms: '+ expanded + '</h4>'
 
 
-    pages = get_retrieved_pages(query)
+    pages = get_retrieved_pages(query, model)
     
     #print("Len Titoli: ", len(data_title), "Len testo: ", len(data_text))
     #for title , page in data_title, data_text:
@@ -105,7 +107,7 @@ def do_research():
             text += '<a href="' + link +'""> ' + page[0] + '</a>'
             text += '<p> ' + page[1] + '</p>'
         if len(expanded) > 0:
-            exp_pages = get_retrieved_pages(expanded)
+            exp_pages = get_retrieved_pages(expanded, model)
             if (exp_pages):
                 for page in exp_pages:
                     link = get_wiki_link(page[0])
@@ -128,6 +130,9 @@ def error500(error):
 def error404(error):
     return 'Nothing here, sorry'
 
-if __name__ == "__main__":
-  
+#if __name__ == "__main__":
+
+def start(arg):
+    global model
+    model = arg
     run(host='localhost', port=8080)
