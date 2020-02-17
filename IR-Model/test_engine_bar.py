@@ -89,11 +89,15 @@ def do_research():
     text += '<form"><pre>'
     
     didyoumean = get_did_you_mean(query)
-    expanded = get_expanded_terms(didyoumean[1])
-    if len(expanded) > 0:
-        print("EXPANDED: ", expanded)
+    print(didyoumean[1])
+    # remove spaces if present and then substitute underscores with spaces
+    # note: Some queries have an initial space 
+    expanded = get_expanded_terms(didyoumean[1]).replace(" ","").replace("_", " ")
+    
+    if len(expanded) > 0 and expanded != query: 
+                  
         text += '<h4> added terms: '+ expanded + '</h4>'
-
+        print(len(expanded),expanded," ",query,len(query))
 
     pages = get_retrieved_pages(query, model)
     
@@ -110,9 +114,10 @@ def do_research():
             exp_pages = get_retrieved_pages(expanded, model)
             if (exp_pages):
                 for page in exp_pages:
-                    link = get_wiki_link(page[0])
-                    text += '<a href="' + link +'""> ' + page[0] + '</a>'
-                    text += '<p> ' + page[1] + '</p>'
+                    if page not in pages:                     
+                        link = get_wiki_link(page[0])
+                        text += '<a href="' + link +'""> ' + page[0] + '</a>'
+                        text += '<p> ' + page[1] + '</p>'
     else:
         text += '<h3> NO RESULTS </h3>'
     text += '</pre></form>'
