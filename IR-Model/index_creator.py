@@ -95,15 +95,17 @@ class Index:
         parser = QueryParser("content", schema=ix.schema)
         query = parser.parse(input_query)  
         
+        
         #Query-corrector
         corrected = searcher.correct_query(query, input_query)
         if corrected.query != query:
              print("Did you mean:", corrected.string)
              results = searcher.search(corrected.query)
+             new_query = qe.buildExpandedQuery(qe, searcher, corrected.string)
         else:
             results = searcher.search(query)
-                
-        new_query = qe.buildExpandedQuery(qe, searcher, input_query)
+            new_query = qe.buildExpandedQuery(qe, searcher, input_query)
+        
         new_query_parsed = parser.parse(new_query)
         results_expanded = searcher.search(new_query_parsed)
         
