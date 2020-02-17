@@ -6,7 +6,8 @@ Main file of the search-engine
 
 from dump_splitter import WikiSplitter
 from index_creator import Index
-
+import nltk
+from nltk.corpus import wordnet
 from whoosh.index import open_dir
 from whoosh.qparser import QueryParser
 from remove_duplicates import remove_duplicate_files
@@ -18,7 +19,8 @@ def display_menu():
           3. Search something
           4. Get Suggestion
           6. Try Did you mean
-          7. Exit
+          7. Get Expanded terms
+          8. Exit
           """)
     answer = input("What would you like to do? ")
     if answer == "1":
@@ -37,6 +39,9 @@ def display_menu():
         query = str(input("Insert a term to search: "))
         print(get_did_you_mean(query))
     elif answer == "7":
+        query = str(input("Insert a term to search: "))
+        print(get_expanded_terms(query))
+    elif answer == "8":
         raise SystemExit
     else:
         print("Invalid choice!")
@@ -102,6 +107,21 @@ def getSuggestion(input_query,num = 3, index_directory ='index_dir'):
          else:
              return [x['title'][:-1] for x in results[:num]]       
 
+def get_expanded_terms(input_query):
+    
+    
+    query_words = [word for (word, pos) in nltk.pos_tag(nltk.word_tokenize(input_query)) if pos[0] == 'N']
+    query_words = [x.lower() for x in query_words]
+    print(query_words)
+    result = ""
+    for word in query_words:
+        if(len(wordnet.synsets(word)) > 1):                
+            syn =  wordnet.synsets(word)[0]
+            if len(syn.lemmas()) >= 2:    
+                result += " " + syn.lemmas()[1].name()
+
+                 
+    return result
 def get_did_you_mean(input_query,index_directory ='index_dir'):
      ix = open_dir(index_directory)
      searcher = ix.searcher()
